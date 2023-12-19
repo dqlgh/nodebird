@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="timeline">
+    <div class="followings half">
+      <h2>내 정보</h2>
+      <input id="nick" name="nick" value="{{user.nick}}">
+      <button id="perform-change" class="btn">정보수정</button>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+      document.getElementById('perform-change').addEventListener('click', function() {
+        const nick = document.getElementById('nick').value;
+        axios.post(`/user/change/${nick}`)
+        .then(() => {
+          //location.reload();
+          location.href = '/'
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+      })
+  </script>
+{% endblock %}
