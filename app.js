@@ -10,7 +10,7 @@ const helmet = require('helmet');
 const hpp = require('hpp');
 const csrf = require('csurf');
 const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
+const RedisStore = require('connect-redis').default;
 
 
 dotenv.config();
@@ -20,7 +20,8 @@ const redisClient = redis.createClient({
     password: process.env.REDIS_PASSSWORD,
     legacyMode: true,
 });
-// redisClient.connect().catch(console.error);
+redisClient.connect().catch(console.error);
+
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
