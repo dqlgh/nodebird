@@ -16,9 +16,9 @@ const RedisStore = require('connect-redis').default;
 dotenv.config();
 
 const redisClient = redis.createClient({
-    url: `redis://${process.env.REDIS_HOST}`,
-    password: process.env.REDIS_PASSSWORD,
-    legacyMode: true,
+    url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+    password: process.env.REDIS_PASSWORD,
+    legacyMode: false,
 });
 redisClient.connect().catch(console.error);
 
@@ -36,7 +36,7 @@ app.set('port', process.env.PORT || 8001);
 app.set('view engine', 'html');
 nunjucks.configure('views', {
     express: app,
-    watch: true,
+    watch: false,
 });
 
 
@@ -109,6 +109,10 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error');
 });
+
+// app.listen(app.get('port'), () => {
+//     console.log(app.get('port'), '번 포트에서 서버 대기중')
+// })
 
 module.exports = app;
 

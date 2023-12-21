@@ -6,7 +6,8 @@ const fs = require('fs');
 
 exports.afterUploadImage = (req, res) => {
     console.log('afterImage: ', req.file);
-    res.json({ url: `/img/${req.file.filename}` });
+    // res.json({ url: `/img/${req.file.filename}` });
+    res.json({ url: req.file.location});
 };
 
 
